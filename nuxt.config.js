@@ -1,3 +1,5 @@
+require("dotenv").config();
+const { API_KEY } = process.env;
 
 export default {
   mode: 'universal',
@@ -46,6 +48,16 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    proxy: true
+  },
+
+  proxy: {
+    '/api': {
+      target: 'https://api.tiingo.com',
+      pathRewrite: {
+        '^/api' : '/'
+        }
+      }
   },
   /*
   ** Build configuration
@@ -56,5 +68,8 @@ export default {
     */
     extend (config, ctx) {
     }
+  },
+  env: {
+    API_KEY
   }
 }
